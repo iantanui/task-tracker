@@ -52,9 +52,9 @@ export default function NewTask() {
               onChange={(e) => setPriority(e.target.value as Task["priority"])}
               className="w-full p-2 border border-gray-300 rounded"
             >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
             </select>
           </div>
           <button
