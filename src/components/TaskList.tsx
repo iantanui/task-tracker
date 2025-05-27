@@ -1,35 +1,34 @@
 "use client";
-import { useState, useEffect } from "react";
-import { loadTasks, saveTasks, Task } from "@/utils/TaskUtils";
+import { saveTasks, Task } from "@/utils/TaskUtils";
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+interface TaskListProps {
+  tasks: Task[];
+  onTasksChange: (tasks: Task[]) => void;
+}
 
-  useEffect(() => {
-    setTasks(loadTasks());
-  }, []);
+export default function TaskList({ tasks, onTasksChange }: TaskListProps) {
 
   const toggleComplete = (id: number) => {
     const updatedTasks = tasks.map((task) =>
       task.id === id ? { ...task, completed: !task.completed } : task
     );
-    setTasks(updatedTasks);
+    onTasksChange(updatedTasks);
     saveTasks(updatedTasks);
   };
 
   const deleteTask = (id: number) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+    onTasksChange(updatedTasks);
     saveTasks(updatedTasks);
   };
 
   const getPriorityColor = (priority: Task["priority"]) => {
     switch (priority) {
-      case "low":
+      case "Low":
         return "bg-green-100 text-green-800";
-      case "medium":
+      case "Medium":
         return "bg-yellow-100 text-yellow-800";
-      case "high":
+      case "High":
         return "bg-red-100 text-red-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -48,7 +47,7 @@ export default function TaskList() {
   };
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-2 transition-opacity duration-300">
       {tasks.length === 0 ? (
         <p className="text-gray-500 text-center">No tasks yet. Add one!</p>
       ) : (

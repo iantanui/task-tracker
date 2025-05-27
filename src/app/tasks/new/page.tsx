@@ -5,7 +5,7 @@ import { saveTasks, Task, loadTasks } from "@/utils/TaskUtils";
 
 export default function NewTask() {
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState<Task["priority"]>("medium");
+  const [priority, setPriority] = useState<Task["priority"]>("Medium");
   const [category, setCategory] = useState<Task["category"]>("Work");
   const router = useRouter();
 
@@ -61,9 +61,9 @@ export default function NewTask() {
               onChange={(e) => setPriority(e.target.value as Task["priority"])}
               className="w-full p-2 border border-gray-300 rounded"
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
             </select>
           </div>
 

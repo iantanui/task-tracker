@@ -12,6 +12,10 @@ export default function Tasks() {
     setTasks(loadTasks());
   }, []);
 
+  const handleTasksChange = (updatedTasks: Task[]) => {
+    setTasks(updatedTasks);
+  };
+
   const filteredTasks = tasks.filter((task) =>
     filter === "All" ? true : task.category === filter
   );
@@ -58,7 +62,7 @@ export default function Tasks() {
             Personal
           </button>
         </div>
-        <TaskList />
+        <TaskList tasks={filteredTasks} onTasksChange={handleTasksChange}/>
       </div>
     </main>
   );
