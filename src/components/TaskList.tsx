@@ -17,6 +17,12 @@ export default function TaskList() {
     saveTasks(updatedTasks);
   };
 
+  const deleteTask = (id: number) => {
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
+  };
+
   const getPriorityColor = (priority: Task["priority"]) => {
     switch (priority) {
       case "low":
@@ -62,6 +68,26 @@ export default function TaskList() {
             >
               {task.priority}
             </span>
+            <button
+              onClick={() => deleteTask(task.id)}
+              className="ml-3 text-red-500 hover:text-red-700 transition-colors"
+              title="Delete Task"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 7l-1 14H6l-1-14m3-4h8m-4 0V3m0 0a2 2 0 00-2 2h6a2 2 0 00-2-2z"
+                />
+              </svg>
+            </button>
           </li>
         ))
       )}
