@@ -6,6 +6,7 @@ import { saveTasks, Task, loadTasks } from "@/utils/TaskUtils";
 export default function NewTask() {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState<Task["priority"]>("medium");
+  const [category, setCategory] = useState<Task["category"]>("Work");
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -19,6 +20,11 @@ export default function NewTask() {
       title: title.trim(),
       completed: false,
       priority,
+      category,
+      createdAt: new Date().toLocaleString("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
     };
     saveTasks([...loadTasks(), newTask]);
     router.push("/tasks");
@@ -27,7 +33,9 @@ export default function NewTask() {
   return (
     <main className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
       <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl text-gray-700 font-bold text-center mb-4">Add New Task</h1>
+        <h1 className="text-2xl text-gray-700 font-bold text-center mb-4">
+          Add New Task
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -42,6 +50,7 @@ export default function NewTask() {
               className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Priority
@@ -55,6 +64,21 @@ export default function NewTask() {
               <option value="low">Low</option>
               <option value="medium">Medium</option>
               <option value="high">High</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Category
+            </label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value as Task["category"])}
+              className="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
             </select>
           </div>
           <button

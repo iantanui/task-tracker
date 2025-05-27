@@ -36,6 +36,17 @@ export default function TaskList() {
     }
   };
 
+  const getCategoryColor = (category: Task["category"]) => {
+    switch (category) {
+      case "Work":
+        return "bg-blue-100 text-blue-800";
+      case "Personal":
+        return "bg-purple-100 text-purple-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
   return (
     <ul className="space-y-2">
       {tasks.length === 0 ? (
@@ -54,13 +65,17 @@ export default function TaskList() {
               onChange={() => toggleComplete(task.id)}
               className="mr-3 h-5 w-5 cursor-pointer"
             />
-            <span
-              className={`flex-1 text-gray-800 ${
-                task.completed ? "line-through text-gray-500" : ""
-              }`}
-            >
-              {task.title}
-            </span>
+            <div className="flex-1">
+              <span
+                className={`flex-1 text-gray-800 ${
+                  task.completed ? "line-through text-gray-500" : ""
+                }`}
+              >
+                {task.title}
+              </span>
+              <p className="text-xs text-gray-500">{task.createdAt}</p>
+            </div>
+
             <span
               className={`text-xs font-semibold px-2 py-1 rounded-full ${getPriorityColor(
                 task.priority
@@ -68,6 +83,15 @@ export default function TaskList() {
             >
               {task.priority}
             </span>
+
+            <span
+              className={`ml-2 text-xs font-semibold px-2 py-1 rounded-full ${getCategoryColor(
+                task.category
+              )}`}
+            >
+              {task.category}
+            </span>
+
             <button
               onClick={() => deleteTask(task.id)}
               className="ml-3 text-red-500 hover:text-red-700 transition-colors"

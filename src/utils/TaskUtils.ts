@@ -3,6 +3,9 @@ export interface Task {
   title: string;
   completed: boolean;
   priority?: "low" | "medium" | "high";
+  category: 'Work' | 'Personal';
+  dueDate?: string;
+  createdAt: string;
 }
 
 export const saveTasks = (tasks: Task[]): void => {
